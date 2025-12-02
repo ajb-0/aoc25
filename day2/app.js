@@ -45,11 +45,9 @@ console.log(res);
 // Part 2 //
 function has_repeatable_substring(s) {
     for (let i=0; i<s.length; i++) {
-        // Take increasingly large substring and try repeating it until it
+        // Take increasingly large substring and try repeating it until it matches full string
         let subs = s.substring(0, i);
         for (let j=0; j<=s.length; j++) {
-            let r = subs.repeat(j);
-            // console.log(r);
             if (subs.repeat(j) == s) {
                 // console.log(`Substring: ${subs}`)
                 return true;
