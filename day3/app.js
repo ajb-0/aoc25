@@ -20,7 +20,7 @@ function findIndexLargest(arr, start_idx, stop_idx) {
 }
 
 function getMaxJoltage(s) {
-    let ns = s // s to array of numbers/digits
+    let ns = s
         .split("")
         .map(x => Number(x))
     a = findIndexLargest(ns, 0, ns.length-2)
@@ -45,9 +45,9 @@ function calculateStopIndex(digit_idx, n_banks, n_required) {
 }
 
 function getMaxJoltageN(s, n) {
-    // s: string like "987654321111111"
-    // n: number of digits required
-    let ns = s // s to array of numbers/digits
+    // Generalise `getMaxVoltage` to find a number 
+    // with `n` digits
+    let ns = s
         .split("")
         .map(x => Number(x))
     let arr = [];
