@@ -20,7 +20,7 @@ function findIndexLargest(arr, start_idx, stop_idx) {
 }
 
 function getMaxJoltage(s) {
-    let ns = s
+    let ns = s // s to array of numbers/digits
         .split("")
         .map(x => Number(x))
     a = findIndexLargest(ns, 0, ns.length-2)
@@ -44,14 +44,16 @@ function calculateStopIndex(digit_idx, n_banks, n_required) {
     return n_banks - n_required + digit_idx;
 }
 
-function getMaxJoltage12(s) {
-    let ns = s
+function getMaxJoltageN(s, n) {
+    // s: string like "987654321111111"
+    // n: number of digits required
+    let ns = s // s to array of numbers/digits
         .split("")
         .map(x => Number(x))
     let arr = [];
     start_idx = 0;
-    for (let i=0; i<12; i++) {
-        stop_idx = calculateStopIndex(i, s.length, 12);
+    for (let i=0; i<n; i++) {
+        stop_idx = calculateStopIndex(i, s.length, n);
         idx = findIndexLargest(ns, start_idx, stop_idx);
         arr.push(s[idx]);
         start_idx = idx+1;
@@ -61,7 +63,7 @@ function getMaxJoltage12(s) {
 
 function solvePart2(data) {
     let res = 0;
-    data.map(r => {res += getMaxJoltage12(r)});
+    data.map(r => {res += getMaxJoltageN(r, 12)});
     return res
 }
 console.log(solvePart2(data))
