@@ -43,9 +43,9 @@ function scanColwise(array) {
 }
 
 function solveBlock(array) {
+    console.log(array)
     // Get slice - last column
     let lastColSlice = array.map(row => row[array[0].length-1])
-    console.log(lastColSlice)
     // Find operator: 
     let operator;
     for (let i=0; i<lastColSlice.length; i++) {
@@ -53,13 +53,28 @@ function solveBlock(array) {
             operator = lastColSlice[i];
         }
     }
-    console.log(operator)
-    //
-    
+    // Do the math
     if (operator==='*') {
+        let res = 1;
+        for (let i=0; i<array.length; i++) {
+            if (allEmpty(array[i])) {
+                res *= 1
+                continue
+            }
+            let n = Number(array[i].join("").replace("*", ""))
+            console.log(`n: ${n}`)
+            res *= n;
+        }
+        return res;
 
     } else if (operator==='+') {
-
+        let res = 0;
+        for (let i=0; i<array.length; i++) {
+            let n = Number(array[i].join("").replace("+", ""))
+            console.log(`n: ${n}`)
+            res += n
+        }
+        return res;
     }
 }
 
@@ -67,14 +82,12 @@ function solvePart2(data) {
     atomisedData = atomise(data);
     let blocks = scanColwise(atomisedData)
     console.log(blocks)
-    console.log(solveBlock(blocks[0]))
+    let res = 0;
+    for (let i=0; i<blocks.length; i++) {
+        let blockRes = solveBlock(blocks[i]);
+        console.log(`block: ${i} | ${blockRes}`);
+        res += blockRes;
+    }
+    return res
 }
-
-
 console.log(solvePart2(data))
-
-
-// let a = atomise(data)
-// for (let i = 0; i< a.length; i++) {
-//     console.log(a[i].length)
-// }
