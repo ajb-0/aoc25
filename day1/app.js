@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const file = "data.txt";
+const file = "test_data.txt";
 const txt = fs.readFileSync(file, "utf8");
 lines = txt.split("\n");
 
