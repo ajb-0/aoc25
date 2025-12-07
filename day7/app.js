@@ -5,23 +5,42 @@ const txt = fs.readFileSync(file, "utf8")
 
 const data = txt.split("\n")
 
-// Nice print
-for (let i=0; i<data.length; i++) {
-    console.log(data[i])
+function atomise(data) {
+    return data.map(row => row.split(""))
 }
 
-function findStartCol(array) {
-    let topRow = array[0];
-    for (let i=0; i<topRow.length; i++) {
-        if (topRow[i] === "S") {
-            return i;
-        }
+// Nice print
+function printGrid(grid) {
+    for (let i=0; i<grid.length; i++) {
+        console.log(grid[i].join(""))
     }
 }
-console.log(findStartCol(data))
 
+function solvePart1(data) {
+    let nSplitters = 0;
+    // Init beam:
+    let grid = atomise(data);
 
+    for (let r=1; r<grid.length; r++) {
+        for (let c=0; c<grid[0].length; c++) {
+            if (grid[r-1][c] == "S") {
+                grid[r][c] = "|"
+            }
+            if (grid[r-1][c] === "|" & grid[r][c] === ".") {
+                grid[r][c] = "|"
+            }
+            if (grid[r][c]==="^" & grid[r-1][c]==="|") {
+                nSplitters++;
+                grid[r][c-1] = "|"
+                grid[r][c+1] = "|"
+            }
+        }
+    }
+    printGrid(grid)
+    console.log(`Number of splitters: ${nSplitters}`)
+}
 
+solvePart1(data)
 
 
 // 1749 too high
